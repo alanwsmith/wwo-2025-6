@@ -1,8 +1,8 @@
-const cellTmpl = `<div 
+const tmpl = `<div 
 data-num="NUM" data-color="COLOR"
 data-receive="update"></div>`;
 
-function randomInt(min, max) {
+function randInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -12,8 +12,13 @@ function sleep(ms) {
 
 class State {
   constructor() {
+    this.min = 0;
+    this.max = 4;
     this.matches = 0;
-    this.targetColor = randomInt(0, 4);
+    this.targetColor = randInt(
+      this.min,
+      this.max,
+    );
   }
 }
 const s = new State();
@@ -23,29 +28,36 @@ window.PageContent = class {
     for (let c = 0; c < 100; c += 1) {
       const fr = {
         "NUM": c,
-        "COLOR": randomInt(0, 2),
+        "COLOR": randInt(0, 2),
       };
-      const cell = this.api.useTemplate(cellTmpl, fr);
+      const cell = this.api.useTemplate(tmpl, fr);
       el.appendChild(cell);
     }
-    await sleep(2000);
+    await sleep(1000);
     this.api.forward(null, "tickUpdate");
   }
 
   status(_event, el) {
-    el.innerHTML = "UPDATED";
+    if (s.matches === 100) {
+      el.innerHTML = "SOLID";
+    }
   }
 
   async tickUpdate() {
     s.matches = 0;
     this.api.forward(null, "update");
     this.api.forward(null, "status");
-    await sleep(2000);
+    await sleep(1000);
     this.tickUpdate();
   }
 
-  update(_event, el) {
-    console.log(el.dataset.color);
-    console.log(el.dataset.num);
+  async update(_event, el) {
+    const checkColor = parseInt(el.dataset.color, 10);
+    if (checkColor !== s.targetColor) {
+      await sleep(randInt(300, 800));
+      el.dataset.color = randInt(s.min, s.max);
+    } else {
+      s.matches += 1;
+    }
   }
 };
