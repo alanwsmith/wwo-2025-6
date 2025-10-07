@@ -1,6 +1,4 @@
-const tmpl = `<div 
-data-num="NUM" data-color="COLOR"
-data-receive="update"></div>`;
+const tmpl = `<div data-receive="shuffle|update"></div>`;
 
 function randInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -12,51 +10,61 @@ function sleep(ms) {
 
 class State {
   constructor() {
-    this.min = 0;
-    this.max = 4;
     this.matches = 0;
-    this.targetColor = randInt(
-      this.min,
-      this.max,
-    );
+    this.max = 4;
+    this.min = 0;
+    this.sleep = 900;
   }
 }
 const s = new State();
 
 window.PageContent = class {
+  shuffle(_event, el) {
+    const color = randInt(s.min, s.max);
+    if (color !== 0) {
+      el.classList.add("padded");
+    }
+    el.dataset.color = color;
+  }
+
   async start(_event, el) {
     for (let c = 0; c < 100; c += 1) {
-      const fr = {
-        "NUM": c,
-        "COLOR": randInt(0, 2),
-      };
-      const cell = this.api.useTemplate(tmpl, fr);
-      el.appendChild(cell);
+      const cell = this.api.useTemplate(tmpl, {});
+      await el.appendChild(cell);
     }
-    await sleep(1000);
+    this.api.forward(null, "shuffle");
+    await sleep(2000);
     this.api.forward(null, "tickUpdate");
   }
 
   status(_event, el) {
     if (s.matches === 100) {
       el.innerHTML = "SOLID";
+    } else {
+      el.innerHTML = "NOT SOLID";
     }
   }
 
   async tickUpdate() {
+    if (s.matches === 100) {
+      await sleep(4000);
+      this.api.forward(null, "shuffle");
+    }
+
     s.matches = 0;
     this.api.forward(null, "update");
     this.api.forward(null, "status");
-    await sleep(1000);
+    await sleep(s.sleep);
     this.tickUpdate();
   }
 
   async update(_event, el) {
     const checkColor = parseInt(el.dataset.color, 10);
-    if (checkColor !== s.targetColor) {
-      await sleep(randInt(300, 800));
+    if (checkColor !== 0) {
+      await sleep(randInt(0, s.sleep - 700));
       el.dataset.color = randInt(s.min, s.max);
     } else {
+      el.classList.remove("padded");
       s.matches += 1;
     }
   }

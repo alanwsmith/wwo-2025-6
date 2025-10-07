@@ -11,9 +11,9 @@
   flex-wrap: wrap;
 }
 
-[data-receive="update"] {
+[data-receive="shuffle|update"] {
   width: 10%;
-  height: 5vh;
+  height: 3vh;
 }
 
 [data-color="0"] {
@@ -36,3 +36,6 @@
   background-color: var(--color-4);
 }
 
+.padded {
+  margin: 1rem;
+}
