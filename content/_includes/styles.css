@@ -1,11 +1,3 @@
-:root {
-  --color-0: oklch(46.00000% 0.18363 94.86000);
-  --color-1: oklch(46.00000% 0.10434 229.86000);
-  --color-2: oklch(46.00000% 0.17763 319.86000);
-  --color-3: oklch(64.00000% 0.17763 94.86000);
-  --color-4: oklch(64.00000% 0.10986 409.86000);
-}
-
 [data-receive=start] {
   display: flex;
   flex-wrap: wrap;
