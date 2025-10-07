@@ -1,0 +1,2 @@
+window.PageContent = class {
+};

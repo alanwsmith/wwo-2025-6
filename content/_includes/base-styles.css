@@ -1,65 +1,3 @@
-[!- set day_num = 0 -!]
-[!- set page_title -!]Alan's Weird Web October Day [@ day_num @][!- endset -!]
-[!- set description -!]
-One site a day for every day in October. Each one with a different theme
-[!- endset -!]
-[!- set og_image -!]
-https://res.cloudinary.com/awsimages/image/upload/c_fit,co_rgb:ffffff,l_text:Aldrich_42_bold:[@ day_num @]/fl_layer_apply,g_north_west,x_230,y_488/wwo-2025-base-og-image_tumugk.png
-[!- endset -!]
-[!- set favicon_root -!]
-/favicons
-[!- endset -!]
-
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<title>[@ page_title @]</title>
-<meta property="og:title" content="[@ page_title @]" />
-
-<link rel="shortcut icon" href="/favicon.ico" />
-
-<meta name="description" content="[@ the_description @]" />
-<meta
-  property="og:description"
-  content="[@ the_description @]"
-/>
-
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wwo-2025-[@ day_num @].alanwsmith.com/" />
-<meta
-  property="og:image"
-  content="[@ og_image @]"
-/>
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="675" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="[@ og_image @]">
-
-<link
-  rel="apple-touch-icon"
-  sizes="180x180"
-  href="/favicons/apple-touch-icon.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="16x16"
-  href="/favicons/favicon-16x16.png"
-/>
-<link
-  rel="icon"
-  type="image/png"
-  sizes="32x32"
-  href="/favicons/favicon-32x32.png"
-/>
-<link rel="manifest" href="/favicons/site.webmanifest" />
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5" />
-
-<style>
 :root {
   color-scheme: light dark; /* Default: light */
   /* Color Base Variables */
@@ -1122,7 +1060,6 @@ data {
 }
 code {
   font-size: var(--small-font);
-  padding-inline: var(--xsmall-padding);
 }
 dd {
   margin-left: var(--default-margin);
@@ -1182,14 +1119,15 @@ h1 {
   text-wrap: balance;
 }
 h2 {
-  color: var(--heading);
   border-bottom: var(--accent-border);
+  color: var(--heading);
   font-size: var(--xxlarge-font);
   font-weight: var(--weight-900);
   line-height: var(--xsmall-line-height);
   text-wrap: balance;
 }
 h3 {
+  border-bottom: var(--accent-border);
   color: var(--heading);
   font-size: var(--xlarge-font);
   font-weight: var(--weight-900);
@@ -1402,7 +1340,6 @@ var {
 video {
   max-width: 100%;
 }
-    
 
 .page-wrapper {
   min-height: 100vh;
@@ -1411,36 +1348,28 @@ video {
   grid-template-rows: auto 1fr auto;
 }
 
-    </style>
-  </head>
-  <body>
-    <bitty-v1-rc5 data-connect="/components/page.js" class="page-wrapper">
-      <header class="default-wrapper xlarge-bottom-margin">
-        <h1>Weird Web October - Day [@ day_num @]</h1>
-        <div class="day_nav small-font accent-bottom-border">
-          Day: 
-          [! for num in range(0, 32) !]
-            [! if num != day_num !]
-              <a href="https://wwo-2025-[@ num @].alanwsmith.com/">[@ num @]</a>
-            [! else !]
-              [@ day_num @]
-            [! endif !]
-          [! endfor !]
-        </div>
-      </header>
-    [! block main !][! endblock !]
+:root {
+  --load-hider: hidden;
+}
 
-      <footer>
-        <div class="small-font">
-          made by <a href="https://www.alanwsmith.com/">alan w smith</a> ~
-          <a href="https://wwo-2025-0.alanwsmith.com/">details</a> ~
-          <a href="https://socials.alanwsmith.com/">socials</a> ~
-          <a href="https://links.alanwsmith.com/">other projects</a>
-        </div>
-      </footer>
-    </bitty-v1-rc5>
+.load-hider {
+  visibility: var(--load-hider);
+}
 
-    <script src="/components/bitty-1.0.0-rc5.full.js" type="module"></script>
-  </body>
-</html>
+.code-block {
+  background-color: var(--match-faded);
+  border-radius: var(--large-radius);
+  margin: var(--large-margin);
+  padding: var(--xlarge-padding);
 
+}
+
+.project-wrapper {
+  border: var(--accent-border-faded);
+  border-radius: var(--default-radius);
+  padding: var(--default-padding);
+}
+
+.dayLink {
+  padding-inline: 0.1rem;
+}
