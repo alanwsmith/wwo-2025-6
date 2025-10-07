@@ -75,7 +75,8 @@ https://github.com/alanwsmith/wwo-2025-[@ day_num @]
 
     const templates = {
       "dayStart": `Day: `,
-      "dayLink": `<a class="dayLink" href="https://wwo-2025-DAY.alanwsmith.com/">DAY</a>`
+      "dayLink": `<a class="dayLink" href="https://wwo-2025-DAY.alanwsmith.com/">DAY</a>`,
+      "dayText": `<span class="dayLink">DAY</span>`
     };
 
     window.BittyClass = class {
@@ -84,14 +85,21 @@ https://github.com/alanwsmith/wwo-2025-[@ day_num @]
       }
 
       dayLinks(_event, el) {
+
         el.appendChild(this.api.useTemplate(templates["dayStart"], {}));
         for (let day = 1; day <= s.config.currentDay; day += 1) {
           const replacements = {
             "DAY": day,
           };
-          el.appendChild(this.api.useTemplate(
-            templates["dayLink"], replacements
-          ));
+          if (day !== [@ day_num @]) {
+            el.appendChild(this.api.useTemplate(
+              templates["dayLink"], replacements
+            ));
+          } else {
+            el.appendChild(this.api.useTemplate(
+              templates["dayText"], replacements
+            ));
+          }
         }
       }
 
