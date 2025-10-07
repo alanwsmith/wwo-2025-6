@@ -28,6 +28,7 @@ window.PageContent = class {
   }
 
   async start(_event, el) {
+    this.updateColors();
     for (let c = 0; c < 100; c += 1) {
       const cell = this.api.useTemplate(tmpl, {});
       await el.appendChild(cell);
@@ -47,10 +48,10 @@ window.PageContent = class {
 
   async tickUpdate() {
     if (s.matches === 100) {
-      await sleep(4000);
+      await sleep(2000);
       this.api.forward(null, "shuffle");
+      this.updateColors();
     }
-
     s.matches = 0;
     this.api.forward(null, "update");
     this.api.forward(null, "status");
@@ -66,6 +67,18 @@ window.PageContent = class {
     } else {
       el.classList.remove("padded");
       s.matches += 1;
+    }
+  }
+
+  updateColors() {
+    const c = randInt(0, 70) / 100;
+    for (let color = 0; color < 4; color += 1) {
+      const l = randInt(40, 80);
+      const h = randInt(0, 360);
+      document.documentElement.style.setProperty(
+        `--color-${color}`,
+        `oklch(${l}% ${c} ${h})`,
+      );
     }
   }
 };
