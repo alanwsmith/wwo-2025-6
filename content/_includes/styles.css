@@ -1,1 +1,38 @@
-/* no extra styles for this site */
+:root {
+  --color-0: oklch(46.00000% 0.18363 94.86000);
+  --color-1: oklch(46.00000% 0.10434 229.86000);
+  --color-2: oklch(46.00000% 0.17763 319.86000);
+  --color-3: oklch(64.00000% 0.17763 94.86000);
+  --color-4: oklch(64.00000% 0.10986 409.86000);
+}
+
+[data-receive=start] {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+[data-receive="update"] {
+  width: 10%;
+  height: 5vh;
+}
+
+[data-color="0"] {
+  background-color: var(--color-0);
+}
+
+[data-color="1"] {
+  background-color: var(--color-1);
+}
+
+[data-color="2"] {
+  background-color: var(--color-2);
+}
+
+[data-color="3"] {
+  background-color: var(--color-3);
+}
+
+[data-color="4"] {
+  background-color: var(--color-4);
+}
+

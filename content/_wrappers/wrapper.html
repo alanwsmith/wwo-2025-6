@@ -68,11 +68,12 @@ https://github.com/alanwsmith/wwo-2025-[@ day_num @]
     <style>
     [! include "_includes/base-styles.css" !]
     </style>
+    
+    <style>
+    [! include "_includes/styles.css" !]
+    </style>
 
     <script>
-    class State{}
-    const s = new State();
-
     const templates = {
       "dayStart": `Day: `,
       "dayLink": `<a class="dayLink" href="https://wwo-2025-DAY.alanwsmith.com/">DAY</a>`,
@@ -85,7 +86,6 @@ https://github.com/alanwsmith/wwo-2025-[@ day_num @]
       }
 
       dayLinks(_event, el) {
-
         el.appendChild(this.api.useTemplate(templates["dayStart"], {}));
         for (let day = 1; day <= s.config.currentDay; day += 1) {
           const replacements = {
@@ -104,7 +104,7 @@ https://github.com/alanwsmith/wwo-2025-[@ day_num @]
       }
 
       showContent(_event, _el) {
-         document.documentElement.style.setProperty("--load-hider", "visible");
+        document.documentElement.style.setProperty("--load-hider", "visible");
       }
     }
     </script>
